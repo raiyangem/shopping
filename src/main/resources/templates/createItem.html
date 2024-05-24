@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>商品一覧</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+	<header th:replace="header"></header>
+	<hr>
+	<main>
+		<form action="/create/item" method="post" enctype="multipart/form-data">
+			<input type="text" name="name">
+			<input type="number" name="price">
+			<input type="file" name="img">
+			<select name="cate">
+				<option th:each="c : ${cates}" th:value="${c.id}" th:text="${c.name}"></option>
+			</select>
+			<button>登録</button>
+		</form>
+	</main>
+	<hr>
+	<footer th:replace="footer"></footer>
+</body>
+</html>

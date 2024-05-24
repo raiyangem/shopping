@@ -1,0 +1,47 @@
+        <header class="header">
+            <div class="header__logo">
+                <a href="/items">
+                    <picture>
+                        <img src="/img/st/fd467322-30e7-4563-aff1-31af61d2307b.png" alt="コムシス情報システム株式会社">
+                    </picture>
+                </a>
+            </div>
+            <form class="search" th:action="@{/search(query=${query})}" method="get">
+			<th:block th:if="${cate != null}">
+				<input type="hidden" name="categoryId" th:value="${cate}">
+			</th:block>
+			<input class="texti" type="text" name="name" th:value="${inputName}" placeholder="商品名を入力しましょう">
+			<input type="number" name="priceL" th:value="${priceL}" placeholder="あなたが求める最も低い金額を教えて">
+			<input type="number" name="priceH" th:value="${priceH}" placeholder="あなたが出せる最も高い金額を教えて">
+			<select name="priceSort">
+				<option value=""></option>
+				<option value="0">安い順</option>
+				<option value="1">高い順</option>
+			</select>
+			<div class="mb-10">
+				<button class="btn btn-mod btn-border btn-circle btn-large">検索</button>
+			</div>
+		</form>
+            <nav class="header__nav">
+                <div class="header__menu-btn">
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="header__menu-wrap">
+                    <ul class="header__menu-list">
+                        <li class="header__menu-item"><a href="/items">TOP</a></li>
+                        <li class="header__menu-item"><a href="/create/item">Register Good</a></li>
+                        <li class="header__menu-item"><a>Category</a></li>
+                        <li class="header__menu-item" th:each="c :${categories}"><a th:href="@{/search(categoryId = ${c.id})}" th:text="${c.name}"></a></li>
+                        <li class="header__menu-item"><a href="/cart">カートを見る</a></li>
+                        <li class="header__menu-item"><a href="/history">購入履歴を見る</a></li>
+                        <li class="header__menu-item">
+							<form action="/delete/account" method="post">
+									<input type="hidden" name="accountId" th:value="${@accountModel.id}">
+									<button>退会する</button>
+							</form>
+						</li>
+                    </ul>
+                </div>
+            </nav>
+        </header>

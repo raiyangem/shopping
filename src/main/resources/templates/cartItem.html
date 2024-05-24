@@ -1,0 +1,24 @@
+<table>
+	<tr>
+		<th>NO</th>
+		<th>商品名</th>
+		<th>値段</th>
+		<th>数量</th>
+	</tr>
+	<tr th:each="item:${items}">
+		<td th:text="${item.itemId}"></td>
+		<td th:text="${item.name}"></td>
+		<td th:text="${item.price}"></td>
+		<td th:text="${item.quantity}"></td>
+		<td>
+			<form action="/cart/delete" method="post">
+				<input type="hidden" name="itemId" th:value="${item.id}">
+				<button>削除</button>
+			</form>
+		</td>
+	</tr>
+	<tr>
+<!--		<td align="right" colspan="5" th:text="'総計：'+${@cart.totalPrice}"></td>-->
+		<td></td>
+	</tr>
+</table>
