@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Index</title>
+</head>
+<body>
+  <form action="/join/member" method="post">
+    <p>名前を入力してください。</p>
+    <input type="text" name="name" />
+    
+    <p>住所を入力してください。</p>
+    <input type="text" name="address" />
+    
+    <p>電話番号を入力してください。</p>
+    <input type="number" name="tel" />
+    
+      <p>メールアドレスを入力してください。</p>
+    <input type="text" name="email" />
+
+    <input type="submit" value="登録" />
+  </form>
+  <br><span th:text="${message}" style="color: red;"></span>
+</body>
+</html>

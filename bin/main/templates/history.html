@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Cart</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+	<header th:replace="header"></header>
+	<hr>
+	<nav>
+		<a href="/items">商品画面に戻る</a>
+	</nav>
+	<main>
+		<div class="his-wrap">
+			<div>
+				商品写真
+			</div>
+			<span>購入数量</span>
+			<span>小計金額</span>
+			<span>購入日</span>
+			<span>商品金額</span>
+			<span>商品リンク</span>
+		</div>
+		<div class="his-wrap" th:each="h : ${hList}">
+			<div>
+				<img th:src="|img/${h.item.img}|" th:alt="${h.item.name}">
+			</div>
+			<span th:text="${h.quantity}"></span>
+			<span th:text="${h.sum}"></span>
+			<span th:text="${h.order.orderedOn}"></span>
+			<span th:text="${h.item.name}"></span>
+			<span th:text="${h.item.price}"></span>
+			<a th:href="@{/items/{itemCode}(itemCode=${h.item.id})}">商品ページ</a>
+		</div>
+	</main>
+	<hr>
+	<footer th:replace="footer"></footer>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>商品一覧</title>
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta name="viewport" content="width=device-width">
+</head>
+<body>
+	<header th:replace="header"></header>
+	<main>
+<div class="p-ttl-wrap">
+	<div class="p-ttl">
+	<span><span>魔</span></span>
+	<span><span>法</span></span>
+	<span><span>の</span></span>
+	<span><span>靴</span></span>
+	<span><span>が</span></span>
+	<span><span>、</span></span>
+	<span><span>あ</span></span>
+	<span><span>な</span></span>
+	<span><span>た</span></span>
+	<span><span>の</span></span>
+	<span><span>足</span></span>
+	<span><span>元</span></span>
+	<span><span>に</span></span>
+	<span><span>微</span></span>
+	<span><span>笑</span></span>
+	<span><span>ん</span></span>
+	<span><span>で</span></span>
+	<span><span>い</span></span>
+	<span><span>る</span></span>
+	<span><span>よ</span></span>
+	<span><span>う</span></span>
+	<span><span>な</span></span>
+	<span><span>気</span></span>
+	<span><span>が</span></span>
+	<span><span>し</span></span>
+	<span><span>ま</span></span>
+	<span><span>せ</span></span>
+	<span><span>ん</span></span>
+	<span><span>か</span></span>
+	<span><span>？</span></span>	
+	</div>
+</div>
+<div class="item__cate-flex" th:each="c : ${categories}">
+	<div class="item__cate-img">
+			<a>
+				<img src="img/st/bnr_20240110185834828.png">
+				<p th:text="${c.name}"></p>
+			</a>
+	</div>
+	<div th:class="'item__cate-wrap' + ${c.id}">
+		<div class="item__cate-sec" th:each="item : ${c.item}">
+			<a th:href="@{/items/{itemCode}(itemCode=${item.id})}">
+				<div class="item__cate-sec-img">
+					<img th:src="|img/${item.img}|">
+				</div>
+				<div class="item__cate-sec-ttl" th:text="${item.name}">
+				</div>
+				<p class="item__cate-sec-price" th;text="'\' + ${item.price}"></p>
+			</a>
+		</div>
+	</div>
+</div>
+	</main>
+	<hr>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script th:inlilne="javascript">
+		var myArray = /*[[${categories}]]*/"form";
+		
+		$(document).ready(function() {
+		    for (let i = 0; i < myArray.length; i++) {
+		        console.log('.item__cate-wrap' + i);
+		        $('.item__cate-wrap' + i).slick({
+		            infinite: true,
+		            slidesToShow: 3,
+		            slidesToScroll: 1
+		        });
+		    }
+		});
+	</script>
+	<footer th:replace="footer"></footer>
+</body>
+</html>

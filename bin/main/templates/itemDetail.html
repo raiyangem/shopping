@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>商品詳細</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+	<header th:replace="header"></header>
+	<form action="/delete/account" method="post">
+			<input type="hidden" name="accountId" th:value="${@accountModel.id}">
+			<button>退会する</button>
+	</form>
+	<main>
+		<table>
+			<tr>
+				<th>NO</th>
+				<th>商品名</th>
+				<th>値段</th>
+				<th></th>
+			</tr>
+			<tr>
+				<td th:text="${detailItem.id}"></td>
+				<td th:text="${detailItem.name}"></td>
+				<td th:text="${detailItem.price}"></td>
+				<td>
+					<form action="/cart/add" method="post">
+						<input type="hidden" name="itemId" th:value="${detailItem.id}">
+						<select name="quantity">
+							<option th:each="i : ${#numbers.sequence(1,30)}" th:text="${i}" th:value="${i}"></option>
+						</select>
+						<button>カートに追加</button>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</main>
+	<hr>
+	<footer th:replace="footer"></footer>
+</body>
+</html>
