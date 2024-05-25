@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>商品一覧</title>
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+	<header th:replace="header"></header>
+	<main>
+		<form class="category-item" action="/category/add" method="post" enctype="multipart/form-data">
+			<div>
+				<label for="cate">カテゴリ名</label>
+				<input type="text" id="cate" name="cate" placeholder="カテゴリ名を入力">
+			</div>
+			<div>
+				<label for="img">カテゴリ画像</label>
+				<input type="file" name="img" id="img">
+			</div>
+			<button class="btn btn-mod btn-border btn-circle btn-large">登録</button>
+		</form>
+	</main>
+	<hr>
+	<footer th:replace="footer"></footer>
+</body>
+</html>

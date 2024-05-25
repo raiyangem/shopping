@@ -3,35 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <title>Cart</title>
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 	<header th:replace="header"></header>
-	<hr>
-	<nav>
-		<a href="/items">商品画面に戻る</a>
-	</nav>
 	<main>
-		<div class="his-wrap">
-			<div>
-				商品写真
+		<div class="his">
+			<div class="his-wrap">
+				<div>
+					商品写真
+				</div>
+				<span class="a1">購入数量</span>
+				<span class="a2">小計金額</span>
+				<span class="a3">購入日</span>
+				<span class="a4">商品名</span>
+				<span class="a5">商品金額</span>
+				<span class="a6">商品リンク</span>
 			</div>
-			<span>購入数量</span>
-			<span>小計金額</span>
-			<span>購入日</span>
-			<span>商品金額</span>
-			<span>商品リンク</span>
-		</div>
-		<div class="his-wrap" th:each="h : ${hList}">
-			<div>
-				<img th:src="|img/${h.item.img}|" th:alt="${h.item.name}">
+			<div class="his-wrap his-b" th:each="h : ${hList}">
+				<div>
+					<img th:src="|img/${h.item.img}|" th:alt="${h.item.name}">
+				</div>
+				<span class="a1" th:text="${h.quantity}"></span>
+				<span class="a2" th:text="${h.sum}"></span>
+				<span class="a3" th:text="${h.order.orderedOn}"></span>
+				<span class="a4" th:text="${h.item.name}"></span>
+				<span class="a5" th:text="${h.item.price}"></span>
+				<a class="a6" th:href="@{/items/{itemCode}(itemCode=${h.item.id})}">商品ページ</a>
 			</div>
-			<span th:text="${h.quantity}"></span>
-			<span th:text="${h.sum}"></span>
-			<span th:text="${h.order.orderedOn}"></span>
-			<span th:text="${h.item.name}"></span>
-			<span th:text="${h.item.price}"></span>
-			<a th:href="@{/items/{itemCode}(itemCode=${h.item.id})}">商品ページ</a>
 		</div>
 	</main>
 	<hr>

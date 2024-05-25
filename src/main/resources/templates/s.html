@@ -3,32 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <title>Insert title here</title>
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
-			<table>
-			<tr>
-				<th>NO</th>
-				<th>商品</th>
-				<th>商品名</th>
-				<th>値段</th>
-				<th></th>
-				<th></th>
-			</tr>
-			<tr th:each="item:${items}">
-				<td th:text="${item.id}"></td>
-				<td>
+	<header th:replace="header"></header>
+			<div class="s-item">
+			<div class="item-cate-name" th:if="${cate != null}" th:text="'現在選択しているカテゴリは「 ' + ${items[0].category.name} + ' 」です。'"></div>
+			<ul>
+				<li>NO</li>
+				<li>商品</li>
+				<li>商品名</li>
+				<li>値段</li>
+				<li>リンク</li>
+				<li></li>
+			</ul>
+			<ul th:each="item:${items}">
+				<li th:text="${item.id}"></li>
+				<li>
 					<img th:src="|img/${item.img}|">
-				</td>
-				<td th:text="${item.name}"></td>
-				<td th:text="${item.price}"></td>
-				<td><a th:href="@{/items/{itemCode}(itemCode=${item.id})}">詳細</a></td>
-				<td>
+				</li>
+				<li th:text="${item.name}"></li>
+				<li th:text="${item.price}"></li>
+				<li><a th:href="@{/items/{itemCode}(itemCode=${item.id})}">詳細</a></li>
+				<li>
 					<form action="/cart/add" method="post">
 						<input type="hidden" name="itemId" th:value="${item.id}">
-						<button>カートに追加</button>
+						<button class="btn btn-mod btn-border btn-circle btn-large">カートに追加</button>
 					</form>
-				</td>
-			</tr>
-		</table>
+				</li>
+			</ul>
+		</div>
+		<footer th:replace="footer"></footer>
 </body>
 </html>

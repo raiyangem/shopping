@@ -1,0 +1,20 @@
+<div class="cart-item">
+	<a class="btn btn-mod btn-border btn-circle btn-large category-item-a" href="/category/add">新規カテゴリ登録</a>
+	<ul>
+		<li>NO</li>
+		<li>カテゴリ画像<br>（画像は表示する際にトリミングされます）</li>
+		<li>カテゴリ名</li>
+		<li></li>
+	</ul>
+	<ul th:each="cs:${categories}">
+		<li th:text="${cs.id}"></li>
+		<li><img th:src="|/img/${cs.img}|"></li>
+		<li th:text="${cs.name}"></li>
+		<li>
+			<form action="/category/delete" method="post">
+				<input type="hidden" name="cateId" th:value="${cs.id}">
+				<button>削除</button>
+			</form>
+		</li>
+	</ul>
+</div>

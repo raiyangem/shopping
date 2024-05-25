@@ -3,20 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <title>商品一覧</title>
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 	<header th:replace="header"></header>
-	<hr>
 	<main>
-		<form action="/create/item" method="post" enctype="multipart/form-data">
-			<input type="text" name="name">
-			<input type="number" name="price">
-			<input type="file" name="img">
-			<select name="cate">
-				<option th:each="c : ${cates}" th:value="${c.id}" th:text="${c.name}"></option>
-			</select>
-			<button>登録</button>
+		<form class="create-item" action="/create/item" method="post" enctype="multipart/form-data">
+			<div>
+				<label for="name">商品名</label>
+				<input type="text" id="name" name="name" placeholder="商品名を入力">
+			</div>
+			<div>
+				<label for="price">金額</label>
+				<input type="number" id="price" name="price">
+			</div>
+			<div>
+				<label for="img">商品画像</label>
+				<input type="file" name="img" id="img">
+			</div>
+			<div>
+				<label for="cate">カテゴリを選択</label>
+				<select name="cate" id="cate">
+					<option th:each="c : ${cates}" th:value="${c.id}" th:text="${c.name}"></option>
+				</select>
+			</div>
+			<button class="btn btn-mod btn-border btn-circle btn-large">登録</button>
 		</form>
 	</main>
 	<hr>

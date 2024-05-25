@@ -84,13 +84,16 @@ public class CartController {
 		Integer itemIdItem = item.get().getId();
 		Integer accountIdItem = accountModel.getId();
 		Integer totalPriceItem = item.get().getPrice() * nQ;
+		String imgItem = item.get().getImg();
+
+		System.out.println("実行"+imgItem);
 		
 		Cart cart = null;
 		
 		if(idItem == null) {
-			cart = new Cart(nameItem, priceItem, quantityItem, accountIdItem, itemIdItem, totalPriceItem);	
+			cart = new Cart(nameItem, priceItem, quantityItem, accountIdItem, itemIdItem, totalPriceItem, imgItem);
 		}else {
-			cart = new Cart(idItem, nameItem, priceItem, quantityItem, accountIdItem, itemIdItem, totalPriceItem);
+			cart = new Cart(idItem, nameItem, priceItem, quantityItem, accountIdItem, itemIdItem, totalPriceItem, imgItem);
 		}
 		
 		cartRepository.save(cart);
@@ -98,7 +101,7 @@ public class CartController {
 	}
 	
 	@PostMapping("/cart/delete")
-	public String deleteCart(@RequestParam("itemId") int itemId) {
+	public String deleteCart(@RequestParam("itemId") Integer itemId) {
 		cartRepository.deleteById(itemId);
 		return "redirect:/cart";
 	}

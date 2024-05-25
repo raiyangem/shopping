@@ -134,7 +134,7 @@ public class ItemController {
 			@RequestParam("price") Integer price,
 			@RequestParam("cate") Category category
 			) throws IOException {
-	    Path dst = Path.of("C:\\pleiades\\2023-06\\workspace\\spring-chap8-ec\\src\\main\\resources\\static\\img", file.getOriginalFilename());
+	    Path dst = Path.of("src\\main\\resources\\static\\img", file.getOriginalFilename());
 	    try {
 	    	 Files.copy(file.getInputStream(), dst);
 	    }catch(FileAlreadyExistsException e) {

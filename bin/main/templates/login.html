@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>ログイン</title>
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
-	<header><h1>サンプルショッピング</h1></header>
-	<main>
-		<form action="/login" method="post">
-			<input type="text" name="email" placeholder="メールアドレス">
-			<button>ログイン</button>
-			<br><span th:text="${message}" style="color: red;"></span>
-		</form>
-		<a href="/join/member">新規会員登録</a>
-	</main>
+	<div class="login">
+		<header><h1>Shopping By Your Feet</h1></header>
+		<main>
+			<form action="/login" method="post">
+				<input type="text" name="email" placeholder="メールアドレス">
+				<button class="btn btn-mod btn-border btn-circle btn-large">ログイン</button>
+				<br><span th:text="${message}" style="color: red;"></span>
+			</form>
+			<a href="/join/member">新規会員登録</a>
+		</main>
+	</div>
 </body>
 </html>

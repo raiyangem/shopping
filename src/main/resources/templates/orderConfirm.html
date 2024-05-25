@@ -3,41 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <title>Confirmation</title>
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 	<header th:replace="header"></header>
 	<hr>
 	<main>
-		<h3>下記の内容で注文を行いますか？</h3>
-		<h3>ご注文商品</h3>
-		<span th:replace="cartItem"></span>
+		<h3 class="order-p">下記の内容で注文を行いますか？</h3>
+		<h3 class="order-pz">ご注文商品</h3>
+		<span th:replace="orderItem"></span>
+		<div class="order-ww">
+			<h3 class="order-pa">お客様情報</h3>
+			<form action="/order" method="post">
+				<div>
+					<ul>
+						<li>お名前</li>
+						<li th:text="${@accountModel.name}"></li>
+					</ul>
+					<ul>
+						<li>住所</li>
+						<li th:text="${@accountModel.address}"></li>
+					</ul>
+					<ul>
+						<li>電話番号</li>
+						<li th:text="${@accountModel.tel}"></li>
+					</ul>
+					<ul>
+						<li>e-mail</li>
+						<li th:text="${@accountModel.email}"></li>
+					</ul>
+				</div>
+				<input type="hidden" name="accountId" th:value="${@accountModel.id}">
+				<button class="btn btn-mod btn-border btn-circle btn-large">この内容で注文</button>
+			</form>
+		</div>
 		<hr>
-		<h3>お客様情報</h3>
-		<form action="/order" method="post">
-			<table>
-				<tr>
-					<th>お名前</th>
-					<td th:text="${@accountModel.name}"></td>
-				</tr>
-				<tr>
-					<th>住所</th>
-					<td th:text="${@accountModel.address}"></td>
-				</tr>
-				<tr>
-					<th>電話番号</th>
-					<td th:text="${@accountModel.tel}"></td>
-				</tr>
-				<tr>
-					<th>e-mail</th>
-					<td th:text="${@accountModel.email}"></td>
-				</tr>
-			</table>
-			<input type="hidden" name="accountId" th:value="${@accountModel.id}">
-			<button>この内容で注文</button>
-		</form>
 	</main>
-	<hr>
 	<footer th:replace="footer"></footer>
 </body>
 </html>

@@ -1,0 +1,16 @@
+<div class="cart-item">
+	<ul>
+		<li>NO</li>
+		<li>商品画像</li>
+		<li>商品名</li>
+		<li>値段</li>
+		<li>数量</li>
+	</ul>
+	<ul th:each="item:${items}">
+		<li th:text="${item.itemId}"></li>
+		<li><img th:src="|/img/${item.img}|"></li>
+		<li th:text="${item.name}"></li>
+		<li th:text="${item.price}"></li>
+		<li th:text="${item.quantity}"></li>
+	</ul>
+</div>

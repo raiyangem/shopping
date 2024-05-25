@@ -6,7 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/css/reset.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <meta name="viewport" content="width=device-width">
 </head>
 <body>
@@ -61,18 +61,17 @@
 				</div>
 				<div class="item__cate-sec-ttl" th:text="${item.name}">
 				</div>
-				<p class="item__cate-sec-price" th;text="'\' + ${item.price}"></p>
+				<p class="item__cate-sec-price" th:text="'￥' + ${item.price}"></p>
 			</a>
 		</div>
 	</div>
 </div>
 	</main>
 	<hr>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<footer th:replace="footer"></footer>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script th:inlilne="javascript">
 		var myArray = /*[[${categories}]]*/"form";
-		
 		$(document).ready(function() {
 		    for (let i = 0; i < myArray.length; i++) {
 		        console.log('.item__cate-wrap' + i);
@@ -84,6 +83,5 @@
 		    }
 		});
 	</script>
-	<footer th:replace="footer"></footer>
 </body>
 </html>

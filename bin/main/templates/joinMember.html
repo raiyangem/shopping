@@ -3,22 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Index</title>
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
-  <form action="/join/member" method="post">
+  <h1 class="join-h1">新規会員登録</h1>
+  <form class="join-form" action="/join/member" method="post">
     <p>名前を入力してください。</p>
-    <input type="text" name="name" />
+    <input type="text" name="name" placeholder="名前を入力してください。" />
     
     <p>住所を入力してください。</p>
-    <input type="text" name="address" />
+    <input type="text" name="address" placeholder="住所を入力してください。" />
     
     <p>電話番号を入力してください。</p>
-    <input type="number" name="tel" />
+    <input type="number" name="tel" placeholder="電話番後を入力してください。" />
     
       <p>メールアドレスを入力してください。</p>
-    <input type="text" name="email" />
+    <input type="text" name="email" placeholder="メールアドレスを入力してください。" />
 
-    <input type="submit" value="登録" />
+    <button class="btn btn-mod btn-border btn-circle btn-large">登録</button>
   </form>
   <br><span th:text="${message}" style="color: red;"></span>
 </body>

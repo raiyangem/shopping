@@ -13,11 +13,15 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="categories")
 public class Category {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+	private String name;
+	@OneToMany(mappedBy="category", cascade=CascadeType.ALL)
+    private List<Item> item;
+	private String img;
+
 	public Integer getId() {
 		return id;
 	}
@@ -25,8 +29,6 @@ public class Category {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	private String name;
 
 	public String getName() {
 		return name;
@@ -36,15 +38,28 @@ public class Category {
 		this.name = name;
 	}
 
-	@OneToMany(mappedBy="category", cascade=CascadeType.ALL)
-    private List<Item> item;
-
 	public List<Item> getItem() {
 		return item;
 	}
 
 	public void setItem(List<Item> item) {
 		this.item = item;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	Category() {
+
+	}
+	public Category(String name, String img) {
+		this.name = name;
+		this.img = img;
 	}
 
 }
