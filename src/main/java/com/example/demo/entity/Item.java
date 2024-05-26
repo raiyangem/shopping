@@ -35,6 +35,8 @@ public class Item {
 	private String img;
 	
 	private Integer quantity;
+
+	private String txt;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@Fetch(FetchMode.JOIN)
@@ -108,14 +110,34 @@ public class Item {
 		this.img = img;
 	}
 
+	public String getTxt() {
+		return txt;
+	}
+
+	public void setTxt(String txt) {
+		this.txt = txt;
+	}
+
 	public Item() {
 		
 	}
 	
-	public Item(String name, Category category, Integer price, String img) {
+	public Item(String name, Category category, Integer price, String img, String txt) {
 		this.name = name;
 		this.category = category;
 		this.price = price;
 		this.img = img;
+		this.txt = txt;
 	}
+
+	public Item(Integer id, String name, Category category, Integer price, String img, String txt) {
+		this.id = id;
+		this.name = name;
+		this.category = category;
+		this.price = price;
+		this.img = img;
+		this.txt = txt;
+	}
+
+
 }

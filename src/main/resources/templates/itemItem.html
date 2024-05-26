@@ -1,0 +1,30 @@
+<div class="cart-item">
+	<a class="btn btn-mod btn-border btn-circle btn-large category-item-a" href="/create/item">新規商品登録</a>
+	<ul>
+		<li>NO</li>
+		<li>商品画像</li>
+		<li>商品名</li>
+		<li>値段</li>
+		<li>数量</li>
+		<li></li>
+		<li></li>
+	</ul>
+	<ul th:each="item:${items}">
+		<li th:text="${item.id}"></li>
+		<li><img th:src="|/img/${item.img}|"></li>
+		<li th:text="${item.name}"></li>
+		<li th:text="${item.price}"></li>
+		<li>
+			<form action="/item/edit" method="get">
+				<input type="hidden" name="id" th:value="${item.id}">
+				<button class="btn btn-mod btn-border btn-circle btn-large">編集</button>
+			</form>
+		</li>
+		<li>
+			<form action="/item/delete" method="post">
+				<input type="hidden" name="itemId" th:value="${item.id}">
+				<button>削除</button>
+			</form>
+		</li>
+	</ul>
+</div>

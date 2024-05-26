@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
@@ -29,95 +28,91 @@ import com.example.demo.specification.ItemSpecification;
 
 @Controller
 public class ItemController {
-	
+
 	@Autowired
 	CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	ItemRepository itemRepository;
-	
+
 	@GetMapping("/items")
 	public String index(
-			@RequestParam(value = "categoryId", defaultValue="") Integer categoryId,
-			@RequestParam(value = "name", defaultValue="") String name,
-			@RequestParam(value = "priceL", defaultValue="") Integer priceL,
-			@RequestParam(value = "priceH", defaultValue="") Integer priceH,
-			@RequestParam(value = "priceSort", defaultValue="") Integer priceSort,
-			Model model
-			) {
-		
+			@RequestParam(value = "categoryId", defaultValue = "") Integer categoryId,
+			@RequestParam(value = "name", defaultValue = "") String name,
+			@RequestParam(value = "priceL", defaultValue = "") Integer priceL,
+			@RequestParam(value = "priceH", defaultValue = "") Integer priceH,
+			@RequestParam(value = "priceSort", defaultValue = "") Integer priceSort,
+			Model model) {
+
 		List<Category> categoryList = categoryRepository.findAll();
 		model.addAttribute("categories", categoryList);
-		
-//		System.out.print(categoryList.get(0).getItem().get(0).);
-		
+
+		// System.out.print(categoryList.get(0).getItem().get(0).);
+
 		return "items";
-		
+
 	}
-	
+
 	@GetMapping("/search")
 	public String search(
-			@RequestParam(value = "categoryId", defaultValue="") Category category,
-			@RequestParam(value = "name", defaultValue="") String name,
-			@RequestParam(value = "priceL", defaultValue="") Integer priceL,
-			@RequestParam(value = "priceH", defaultValue="") Integer priceH,
-			@RequestParam(value = "priceSort", defaultValue="") Integer priceSort,
-			Model model
-			) {
-		
+			@RequestParam(value = "categoryId", defaultValue = "") Category category,
+			@RequestParam(value = "name", defaultValue = "") String name,
+			@RequestParam(value = "priceL", defaultValue = "") Integer priceL,
+			@RequestParam(value = "priceH", defaultValue = "") Integer priceH,
+			@RequestParam(value = "priceSort", defaultValue = "") Integer priceSort,
+			Model model) {
+
 		List<Category> cateoryList = categoryRepository.findAll();
 		model.addAttribute("categories", cateoryList);
-		
+
 		List<Item> itemList = null;
-		
+
 		itemList = findItems(name, category, priceL, priceH);
 		model.addAttribute("priceL", priceL);
 		model.addAttribute("priceH", priceH);
 		model.addAttribute("inputName", name);
 		model.addAttribute("cate", category);
 		model.addAttribute("sort", priceSort);
-		
-		if(!(priceSort == null)) {
-			if(priceSort == 0) {
+
+		if (!(priceSort == null)) {
+			if (priceSort == 0) {
 				Collections.sort(itemList, new ItemListComparatorAsc());
-			}else {
+			} else {
 				Collections.sort(itemList, new ItemListComparatorDesc());
 			}
 		}
-		
-		model.addAttribute("items",itemList);
-		
+
+		model.addAttribute("items", itemList);
+
 		return "s";
-		
+
 	}
-	
+
 	@GetMapping("/items/{itemCode}")
 	public String itemDetail(
 			@PathVariable("itemCode") Integer itemCode,
-			Model model
-			) {
+			Model model) {
 		Optional<Item> detailItem = Optional.ofNullable(new Item());
 		detailItem = itemRepository.findById(itemCode);
 		List<Category> categoryList = categoryRepository.findAll();
 		model.addAttribute("categories", categoryList);
-		
+
 		System.out.println(detailItem);
-		
+
 		model.addAttribute("detailItem", detailItem.get());
-		
+
 		return "itemDetail";
 	}
 
 	public List<Item> findItems(String name, Category category, Integer priceL, Integer priceH) {
-		 ItemSpecification spec = new ItemSpecification();
-		
-	    return itemRepository.findAll(Specification
-	        .where(spec.nameContains(name))
-	        .and(spec.findByCategoryId(category))
-	        .and(spec.priceBetween(priceL, priceH))
-	    );
+		ItemSpecification spec = new ItemSpecification();
+
+		return itemRepository.findAll(Specification
+				.where(spec.nameContains(name))
+				.and(spec.findByCategoryId(category))
+				.and(spec.priceBetween(priceL, priceH)));
 	}
-	
+
 	@GetMapping("/create/item")
 	public String createItem(Model model) {
 		List<Category> cateList = categoryRepository.findAll();
@@ -126,34 +121,93 @@ public class ItemController {
 		model.addAttribute("categories", categoryList);
 		return "createItem";
 	}
-	
+
 	@PostMapping("create/item")
 	public String uploadCreateItem(
 			@RequestParam("img") MultipartFile file,
 			@RequestParam("name") String name,
 			@RequestParam("price") Integer price,
-			@RequestParam("cate") Category category
-			) throws IOException {
-	    Path dst = Path.of("src\\main\\resources\\static\\img", file.getOriginalFilename());
-	    try {
-	    	 Files.copy(file.getInputStream(), dst);
-	    }catch(FileAlreadyExistsException e) {
-	    	String fileName = file.getOriginalFilename();
-		    
-		    Item item = new Item(name, category, price, fileName);
-		    
-		    itemRepository.save(item);
-		    
-		    return "redirect:/items";
-	    }
-	    
-	    String fileName = file.getOriginalFilename();
-	    
-	    Item item = new Item(name, category, price, fileName);
-	    
-	    itemRepository.save(item);
-	    
-	    return "redirect:/items";
-	  }
+			@RequestParam("cate") Category category,
+			@RequestParam("txt") String txt) throws IOException {
+		Path dst = Path.of("src\\main\\resources\\static\\img", file.getOriginalFilename());
+		try {
+			Files.copy(file.getInputStream(), dst);
+		} catch (FileAlreadyExistsException e) {
+			String fileName = file.getOriginalFilename();
+
+			Item item = new Item(name, category, price, fileName, txt);
+
+			itemRepository.save(item);
+
+			return "redirect:/items";
+		}
+
+		String fileName = file.getOriginalFilename();
+
+		Item item = new Item(name, category, price, fileName, txt);
+
+		itemRepository.save(item);
+
+		return "redirect:/items";
+	}
+
+	@GetMapping("/itemList")
+	public String editList(Model model) {
+
+		List<Category> cateoryList = categoryRepository.findAll();
+		model.addAttribute("categories", cateoryList);
+		List<Item> item = itemRepository.findAll();
+		model.addAttribute("items", item);
+
+		return "itemList";
+	}
+
+	@GetMapping("/item/edit")
+	public String editItemGet(
+			@RequestParam("id") Integer id,
+			Model model) {
+		List<Category> c = categoryRepository.findAll();
+		model.addAttribute("categories", c);
+		Optional<Item> ii = itemRepository.findById(id);
+		model.addAttribute("ii", ii);
+		model.addAttribute("cates", c);
+		return "createItem";
+	}
+
+	@PostMapping("/item/edit")
+	public String editItem(
+			@RequestParam("id") Integer id,
+			@RequestParam("name") String name,
+			@RequestParam("price") Integer price,
+			@RequestParam("txt") String txt,
+			@RequestParam("cate") Category category,
+			@RequestParam("img") MultipartFile file,
+			Model model) throws IOException {
+		Optional<Item> is = null;
+		Path dst = null;
+		String fileName;
+		if (!file.isEmpty()) {
+			// 新しい画像がアップロードされた場合のみ保存処理を行う
+			dst = Path.of("src\\main\\resources\\static\\img", file.getOriginalFilename());
+			try {
+				Files.copy(file.getInputStream(), dst);
+			} catch (FileAlreadyExistsException e) {
+			} finally {
+				fileName = file.getOriginalFilename();
+			}
+		} else {
+			is = itemRepository.findById(id);
+			fileName = is.get().getImg();
+		}
+		Item itemSet = new Item(id, name, category, price, fileName, txt);
+		itemRepository.save(itemSet);
+		return "redirect:/itemList";
+	}
+
+	@PostMapping("/item/delete")
+	public String deleteItem(@RequestParam("itemId") Integer itemId) {
+		itemRepository.deleteById(itemId);
+		return "redirect:/itemList";
+	}
 
 }

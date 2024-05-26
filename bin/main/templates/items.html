@@ -46,18 +46,18 @@
 	<span><span>？</span></span>	
 	</div>
 </div>
-<div class="item__cate-flex" th:each="c : ${categories}">
+<div class="item__cate-flex" th:each="c, iterStat : ${categories}">
 	<div class="item__cate-img">
 			<a>
-				<img src="img/st/bnr_20240110185834828.png">
+				<img th:src="|/img/${c.img}|">
 				<p th:text="${c.name}"></p>
 			</a>
 	</div>
-	<div th:class="'item__cate-wrap' + ${c.id}">
+	<div th:class="'item__cate-wrap' + ${iterStat.index + 1}">
 		<div class="item__cate-sec" th:each="item : ${c.item}">
 			<a th:href="@{/items/{itemCode}(itemCode=${item.id})}">
 				<div class="item__cate-sec-img">
-					<img th:src="|img/${item.img}|">
+					<img th:src="|/img/${item.img}|">
 				</div>
 				<div class="item__cate-sec-ttl" th:text="${item.name}">
 				</div>
@@ -73,7 +73,7 @@
 	<script th:inlilne="javascript">
 		var myArray = /*[[${categories}]]*/"form";
 		$(document).ready(function() {
-		    for (let i = 0; i < myArray.length; i++) {
+		    for (let i = 0; i <= myArray.length; i++) {
 		        console.log('.item__cate-wrap' + i);
 		        $('.item__cate-wrap' + i).slick({
 		            infinite: true,

@@ -9,24 +9,40 @@
 <body>
 	<header th:replace="header"></header>
 	<main>
-		<form class="create-item" action="/create/item" method="post" enctype="multipart/form-data">
+		<th:block th:if="${ii != null}">
+				<form class="create-item" action="/item/edit" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="id" th:value="${ii.get().id}">
+		</th:block>
+		<th:block th:if="${ii == null}">
+			<form class="create-item" action="/create/item" method="post" enctype="multipart/form-data">
+		</th:block>
 			<div>
 				<label for="name">商品名</label>
-				<input type="text" id="name" name="name" placeholder="商品名を入力">
+				<input type="text" id="name" name="name" placeholder="商品名を入力" th:value="${ii != null ? ii.get().name : ''}">
 			</div>
 			<div>
 				<label for="price">金額</label>
-				<input type="number" id="price" name="price">
+				<input type="number" id="price" name="price" th:value="${ii != null ? ii.get().price : ''}">
 			</div>
 			<div>
 				<label for="img">商品画像</label>
 				<input type="file" name="img" id="img">
+				<th:block th:if="${ii != null && ii.get().img != null}">
+				  <div style="width: 100%; padding-top: 10px;">
+					<img th:src="|/img/${ii.get().img}|" alt="カテゴリ画像" style="max-width: 100%; height: auto;">
+					<p>上の画像は現在の商品画像です。<br>画像は変更する場合のみ選択し直してください。</p>
+				  </div>
+				</th:block>
 			</div>
 			<div>
 				<label for="cate">カテゴリを選択</label>
 				<select name="cate" id="cate">
-					<option th:each="c : ${cates}" th:value="${c.id}" th:text="${c.name}"></option>
+					<option th:each="c : ${cates}" th:value="${c.id}" th:text="${c.name}" th:selected="${ii != null ? ii.get().price == c.id : ''}"></option>
 				</select>
+			</div>
+			<div>
+				<label for="txt">説明文</label>
+				<textarea id="txt" name="txt" placeholder="商品の説明を入力" th:text="${ii != null ? ii.get().txt : ''}"></textarea>
 			</div>
 			<button class="btn btn-mod btn-border btn-circle btn-large">登録</button>
 		</form>

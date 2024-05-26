@@ -54,10 +54,16 @@ public class Category {
 		this.img = img;
 	}
 
-	Category() {
+	public Category() {
 
 	}
 	public Category(String name, String img) {
+		this.name = name;
+		this.img = img;
+	}
+
+	public Category(Integer id, String name, String img) {
+		this.id = id;
 		this.name = name;
 		this.img = img;
 	}

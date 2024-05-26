@@ -136,23 +136,16 @@ body {
 
 .item {
 	&__cate {
-		&-wrap1 {
-			width: 79%;
-		}
-		&-wrap2 {
-			
-		}
-		&-wrap3 {
-			
-		}
 		&-img {
 	        width: 230px;
+            height: 320px;
 	        position: relative;
 	        margin-right: 30px;
-	        height: fit-content;
 	        img {
 				width: 100%;
-				height: auto;
+				height: 100%;
+                object-fit: cover;
+                filter: brightness(85%);
 			}
 			a {
 				width: 100%;
@@ -160,6 +153,7 @@ body {
 			    display: inline-block;
 			}
 			p {
+                letter-spacing: 0.28em;
 				font-weight: 600;
 			    font-size: 18px;
 				position: absolute;
@@ -178,13 +172,18 @@ body {
 		    margin-bottom: 70px;
 		}
 		&-sec {
+            width: 30.667%;
 			img {
 				width: 100% !important;
-				height: auto !important;
+				height: 100% !important;
+                object-fit: cover;
 			}
 			&-img, &-ttl, &-price {
 				margin-bottom: 10px !important;
 			}
+            &-img {
+                height: 245px !important;
+            }
 			&-ttl {
 				height: 36.78px !important;
 			  display: -webkit-box !important;
@@ -212,6 +211,12 @@ body {
 }
 .slick-next {
 	right: 13px !important;
+}
+.slick-slider {
+    width: calc(100% - 260px);
+}
+.slick-slider .slick-list, .slick-slider .slick-track {
+    margin-left: 0;
 }
 .p-ttl {
     position: absolute;
@@ -332,6 +337,7 @@ body {
 
 .search {
 	position: relative;
+    padding-bottom: 10px;
 	input {
 		    box-sizing: border-box;
     width: 33%;
@@ -448,13 +454,14 @@ a.btn-mod:focus{
     padding-top: 200px;
     width: 90%;
     @include flex;
-    margin: 0 auto;
+    margin: 0 auto 150px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     div {
         width: fit-content;
-        min-width: 370px;
+        max-width: 386px;
+        width: 100%;
         margin-bottom: 30px;
         @include flex;
         justify-content: space-between;
@@ -466,6 +473,13 @@ a.btn-mod:focus{
         label {
             position: relative;
             top: 3px;
+            width: 79px;
+        }
+        textarea {
+            width: 72%;
+            border: solid 1px #222;
+            border-radius: 4px;
+            min-height: 200px;
         }
     }
 }
@@ -480,7 +494,7 @@ a.btn-mod:focus{
     align-items: center;
     div {
         width: fit-content;
-        min-width: 370px;
+        max-width: 386px;
         margin-bottom: 30px;
         @include flex;
         justify-content: space-between;
@@ -599,7 +613,7 @@ body {
         margin-bottom: 20px;
     }
     &-form {
-        margin-bottom: 150px;
+        margin-bottom: 60px;
         form {
             @include flex;
             gap: 0 30px;
@@ -613,6 +627,17 @@ body {
             border: solid 1px #222;
             padding: 5px 10px;
             border-radius: 4px;
+        }
+    }
+    &-txt {
+        margin-bottom: 150px;
+        p {
+            font-size: 20px;
+            padding-bottom: 20px;
+        }
+        &-p {
+            font-size: 16px !important;
+            white-space: pre-wrap;
         }
     }
 }
